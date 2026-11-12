@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="소개" description="이 블로그와 글쓴이 소개.">
+  <div class="page-head ledger">
+    <div class="rail"></div>
+    <div>
+      <h1>소개</h1>
+    </div>
+  </div>
+
+  <div class="ledger">
+    <div class="rail">
+      <dl>
+        <dt>주로 쓰는 것</dt>
+        <dd>Spring Boot 3, JPA</dd>
+        <dd>PostgreSQL</dd>
+        <dd>AWS EC2</dd>
+        <dt>연락</dt>
+        <dd><a href={site.github}>GitHub</a></dd>
+      </dl>
+    </div>
+    <div class="prose">
+      <p>백엔드 개발자입니다. Spring Boot와 JPA로 서버를 만들고, PostgreSQL에 데이터를 담습니다.</p>
+      <p>
+        이 블로그에는 만든 결과보다 결정한 이유를 적습니다. 테이블의 키를 왜 그렇게 잡았는지, 트랜잭션을
+        어디서 끊었는지, 다른 선택지는 왜 버렸는지를 남깁니다. 나중에 같은 코드를 다시 봤을 때 스스로
+        설명할 수 있어야 한다고 생각하기 때문입니다.
+      </p>
+      <p>
+        글은 두 종류입니다. <a href="/notes/">기술 노트</a>는 설계 결정을 주제별로 정리한 글이고,
+        <a href="/devlog/">개발 일지</a>는 구현하면서 막힌 곳과 푼 방법을 적은 글입니다.
+      </p>
+
+      <h2 id="ai">AI와 일하는 방식</h2>
+      <p>
+        설계와 개발에 AI를 씁니다. 숨기지 않고, 글마다 어떤 모델과 함께했는지 왼쪽 정보란에 적습니다.
+      </p>
+      <table>
+        <thead>
+          <tr><th>작업</th><th>모델</th><th>쓰는 방식</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>설계</td>
+            <td>Claude Fable 5.2</td>
+            <td>명세서와 요구사항을 주고 설계 초안과 근거를 받는다. 근거를 따져 보고 고친다.</td>
+          </tr>
+          <tr>
+            <td>개발</td>
+            <td>글마다 표기</td>
+            <td>구현을 시작하면 개발 일지에 사용한 모델을 적는다.</td>
+          </tr>
+          <tr>
+            <td>이 블로그</td>
+            <td>Claude Fable 5.2</td>
+            <td>사이트 뼈대와 글 초안을 함께 만들었다.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        AI가 낸 설계를 그대로 옮기지 않으려고, 결정마다 "왜 이렇게 했는가"와 "무엇을 확인해야 하는가"를
+        글로 남깁니다. 실제 호출이나 테스트로 확인하지 못한 가정은 글 안에 따로 표시합니다.
+      </p>
+    </div>
+  </div>
+</Base>

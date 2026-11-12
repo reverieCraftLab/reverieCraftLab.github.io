@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, tagCounts } from '../../data/site';
+
+const tags = tagCounts(await getPosts());
+---
+
+<Base title="태그" description="태그별 글 모음.">
+  <div class="page-head ledger">
+    <div class="rail">{tags.length}개</div>
+    <div>
+      <h1>태그</h1>
+      <ul class="taglist" style="margin-top:1.5rem">
+        {
+          tags.map(([tag, count]) => (
+            <li>
+              <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
+              <span class="count">{count}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Base>

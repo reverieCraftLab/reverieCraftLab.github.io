@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRows from '../../components/PostRows.astro';
+import { getPosts } from '../../data/site';
+
+const posts = (await getPosts()).filter((p) => p.data.kind === 'devlog');
+---
+
+<Base title="개발 일지" description="구현하면서 막힌 곳과 푼 방법을 날짜순으로 적은 글.">
+  <div class="page-head ledger">
+    <div class="rail">글 {posts.length}개</div>
+    <div>
+      <h1>개발 일지</h1>
+      <p>구현하면서 막힌 곳과 푼 방법을 날짜순으로 적습니다.</p>
+    </div>
+  </div>
+  <PostRows posts={posts} emptyText="구현을 시작하면 여기에 일지가 쌓입니다." />
+</Base>

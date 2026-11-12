@@ -1,0 +1,35 @@
+---
+import { formatDate, type Post } from '../data/site';
+
+interface Props {
+  parts: { order: number; title: string; post: Post | null }[];
+  currentId?: string;
+  grow?: boolean;
+}
+const { parts, currentId, grow = false } = Astro.props;
+---
+
+<ol class:list={['stem', { grow }]}>
+  {
+    parts.map((part, i) => (
+      <li
+        class:list={{ planned: !part.post, here: part.post?.id === currentId }}
+        style={`--i:${i}`}
+      >
+        <span class="order">{part.order}편</span>
+        {part.post && part.post.id !== currentId ? (
+          <a href={`/posts/${part.post.id}/`}>{part.title}</a>
+        ) : (
+          <span class="title">{part.title}</span>
+        )}
+        <span class="note">
+          {part.post
+            ? part.post.id === currentId
+              ? '지금 읽는 글'
+              : formatDate(part.post.data.date)
+            : '작성 예정'}
+        </span>
+      </li>
+    ))
+  }
+</ol>

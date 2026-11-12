@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRows from '../../components/PostRows.astro';
+import { getPosts } from '../../data/site';
+
+const posts = (await getPosts()).filter((p) => p.data.kind === 'note');
+---
+
+<Base title="기술 노트" description="설계 결정과 그 근거를 주제별로 정리한 글.">
+  <div class="page-head ledger">
+    <div class="rail">글 {posts.length}개</div>
+    <div>
+      <h1>기술 노트</h1>
+      <p>설계 결정과 그 근거를 주제별로 정리한 글입니다.</p>
+    </div>
+  </div>
+  <PostRows posts={posts} />
+</Base>

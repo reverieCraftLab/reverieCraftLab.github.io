@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { projects } from '../data/site';
+---
+
+<Base title="프로젝트" description="직접 설계하고 만든 프로젝트 목록.">
+  <div class="page-head ledger">
+    <div class="rail">{projects.length}개</div>
+    <div>
+      <h1>프로젝트</h1>
+      <p>직접 설계하고 만든 것들입니다. 진행 중인 것은 현재 단계를 함께 적습니다.</p>
+    </div>
+  </div>
+
+  <ol class="rows">
+    {
+      projects.map((p) => (
+        <li class="project">
+          <div class="when">
+            {p.period}
+            <br />
+            <span class="status">{p.status}</span>
+          </div>
+          <div>
+            <h3>{p.title}</h3>
+            <p>{p.summary}</p>
+            <p class="stack">{p.stack.join(', ')}</p>
+            {p.ai && (
+              <p class="stack">
+                함께한 AI: 설계 {p.ai.design}, 개발 {p.ai.dev}
+              </p>
+            )}
+            <div class="links">
+              {p.links.map((l) => (
+                <a href={l.href}>{l.label}</a>
+              ))}
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Base>

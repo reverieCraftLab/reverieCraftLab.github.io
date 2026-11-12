@@ -1,0 +1,569 @@
+:root {
+  --paper: #eef2ec;
+  --ink: #14261d;
+  --moss: #2b6a4c;
+  --sprout: #c6e04f;
+  --soil: #655c50;
+  --line: #c9d2c6;
+  --code-bg: #e2e9df;
+
+  --font-display: 'Hahmlet', 'Noto Serif KR', serif;
+  --font-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-code: 'IBM Plex Mono', 'D2Coding', Consolas, monospace;
+
+  --rail: 9.5rem;
+  --measure: 42.5rem;
+  --gap: 2.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: var(--moss);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+::selection {
+  background: var(--sprout);
+  color: var(--ink);
+}
+
+.wrap {
+  max-width: calc(var(--rail) + var(--gap) + var(--measure) + 3rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 머리말 */
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding: 1.75rem 0 1.25rem;
+  border-bottom: 3px solid var(--ink);
+}
+.masthead .name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.masthead nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+.masthead nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.975rem;
+  padding: 0.15rem 0;
+  border-bottom: 3px solid transparent;
+}
+.masthead nav a:hover {
+  border-bottom-color: var(--line);
+}
+.masthead nav a[aria-current='page'] {
+  border-bottom-color: var(--sprout);
+}
+
+/* 날짜 레일 + 본문 2단 */
+.ledger {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, var(--measure));
+  column-gap: var(--gap);
+}
+.ledger > .rail {
+  color: var(--soil);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-top: 0.3rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.page-head {
+  padding: 3.5rem 0 2.5rem;
+}
+.page-head h1 {
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+}
+.page-head p {
+  margin: 0.9rem 0 0;
+  max-width: var(--measure);
+  color: var(--soil);
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding-top: 0.15rem;
+}
+section.block {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+/* 글 목록 행 */
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rows > li {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, var(--measure));
+  column-gap: var(--gap);
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--line);
+}
+.rows > li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.rows time,
+.rows .when {
+  color: var(--soil);
+  font-size: 0.9rem;
+  padding-top: 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+.rows h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.rows h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.rows h3 a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--sprout);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 0.18em;
+}
+.rows p {
+  margin: 0.35rem 0 0;
+  color: var(--soil);
+  font-size: 0.975rem;
+  line-height: 1.65;
+}
+.rows .meta {
+  margin-top: 0.45rem;
+  font-size: 0.875rem;
+  color: var(--soil);
+}
+.rows .meta a {
+  color: var(--soil);
+  margin-right: 0.6rem;
+}
+
+/* 시리즈 줄기 */
+.stem {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  position: relative;
+}
+.stem::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.6rem;
+  bottom: 0.9rem;
+  width: 3px;
+  background: var(--moss);
+  border-radius: 2px;
+}
+.stem li {
+  position: relative;
+  padding: 0 0 1.15rem 2.6rem;
+  line-height: 1.5;
+}
+.stem li:last-child {
+  padding-bottom: 0;
+}
+.stem li::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.3rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 0 100% 0 100%;
+  background: var(--moss);
+  transform-origin: 0 100%;
+}
+.stem li.planned::before {
+  background: var(--paper);
+  border: 2px dashed var(--moss);
+}
+.stem li.here::before {
+  background: var(--sprout);
+  border: 2px solid var(--moss);
+}
+.stem .order {
+  display: inline-block;
+  min-width: 2.4rem;
+  color: var(--soil);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.stem a,
+.stem .title {
+  font-weight: 600;
+  font-size: 1.075rem;
+}
+.stem a {
+  color: var(--ink);
+}
+.stem .planned .title {
+  font-weight: 400;
+  color: var(--soil);
+}
+.stem .note {
+  color: var(--soil);
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stem.grow li::before {
+    animation: leaf 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    animation-delay: calc(var(--i) * 90ms + 150ms);
+  }
+  @keyframes leaf {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+/* 홈 머리 */
+.home-intro {
+  padding: 3.5rem 0 3rem;
+}
+.home-intro .lede {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 3.4vw, 2rem);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 34rem;
+}
+.series-feature h2 {
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-weight: 700;
+}
+.series-feature h2 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.series-feature .desc {
+  margin: 0.7rem 0 0;
+  color: var(--soil);
+}
+.status {
+  display: inline-block;
+  background: var(--sprout);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.05rem 0.5rem;
+  border-radius: 2px;
+}
+
+.taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.taglist a {
+  color: var(--ink);
+}
+.taglist .count {
+  color: var(--soil);
+  font-size: 0.85rem;
+  margin-left: 0.2rem;
+}
+
+/* 글 본문 */
+.post-head {
+  padding: 3.5rem 0 2.25rem;
+}
+.post-head h1 {
+  font-size: clamp(1.8rem, 4.4vw, 2.5rem);
+  font-weight: 700;
+}
+.post-head .desc {
+  margin: 1rem 0 0;
+  color: var(--soil);
+  font-size: 1.1rem;
+}
+.rail dl {
+  margin: 0;
+}
+.rail dt {
+  font-size: 0.8rem;
+  margin-top: 0.9rem;
+}
+.rail dt:first-child {
+  margin-top: 0;
+}
+.rail dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+.rail dd a {
+  color: var(--ink);
+  display: inline-block;
+  margin-right: 0.4rem;
+}
+
+.series-box {
+  border-left: 3px solid var(--moss);
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin: 0 0 2.25rem;
+  font-size: 0.95rem;
+}
+.series-box p {
+  margin: 0;
+}
+.series-box .nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.5rem;
+  margin-top: 0.3rem;
+  color: var(--soil);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose p {
+  margin: 1.15rem 0;
+}
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2.9rem 0 0.9rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.prose h3 {
+  font-size: 1.18rem;
+  font-weight: 600;
+  margin: 2.1rem 0 0.6rem;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.35rem;
+  margin: 1.15rem 0;
+}
+.prose li {
+  margin: 0.4rem 0;
+}
+.prose li::marker {
+  color: var(--moss);
+}
+.prose strong {
+  font-weight: 600;
+}
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.1rem 0 0.1rem 1.1rem;
+  border-left: 3px solid var(--sprout);
+  color: var(--soil);
+}
+.prose code {
+  font-family: var(--font-code);
+  font-size: 0.875em;
+  background: var(--code-bg);
+  padding: 0.12em 0.35em;
+  border-radius: 3px;
+}
+.prose pre {
+  background: var(--code-bg) !important;
+  padding: 1.1rem 1.25rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 1.5rem 0;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+.prose table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+.prose th,
+.prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 1rem 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+  min-width: 6.5rem;
+}
+.prose th {
+  font-weight: 600;
+  border-bottom: 2px solid var(--ink);
+  white-space: nowrap;
+}
+
+.post-foot {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.ai-note {
+  margin: 2.5rem 0 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 3px solid var(--sprout);
+  color: var(--soil);
+  font-size: 0.92rem;
+}
+.ai-table {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1.5rem;
+  margin: 2.25rem 0 0;
+  font-size: 0.95rem;
+}
+.ai-table dt {
+  color: var(--soil);
+}
+.ai-table dd {
+  margin: 0;
+  font-weight: 500;
+}
+.ai-table + .ai-note {
+  margin-top: 1rem;
+}
+
+/* 프로젝트 */
+.project h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.project .stack {
+  color: var(--soil);
+  font-size: 0.9rem;
+  margin: 0.45rem 0 0;
+}
+.project .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.empty {
+  color: var(--soil);
+}
+
+footer.site {
+  margin-top: 4rem;
+  padding: 1.5rem 0 3rem;
+  border-top: 3px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  font-size: 0.9rem;
+  color: var(--soil);
+}
+footer.site a {
+  color: var(--soil);
+  margin-left: 1.2rem;
+}
+footer.site a:first-child {
+  margin-left: 0;
+}
+
+@media (max-width: 760px) {
+  body {
+    font-size: 1rem;
+  }
+  .ledger,
+  .rows > li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ledger > .rail {
+    padding: 0 0 1rem;
+  }
+  .rows time,
+  .rows .when {
+    padding: 0 0 0.2rem;
+  }
+  .rail dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.2rem;
+  }
+  .rail dt {
+    display: none;
+  }
+  .page-head,
+  .post-head,
+  .home-intro {
+    padding-top: 2.25rem;
+  }
+}

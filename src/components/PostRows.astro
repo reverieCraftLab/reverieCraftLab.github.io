@@ -1,0 +1,33 @@
+---
+import { formatDate, isoDate, kinds, type Post } from '../data/site';
+
+interface Props {
+  posts: Post[];
+  emptyText?: string;
+}
+const { posts, emptyText = '아직 글이 없습니다.' } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="empty">{emptyText}</p>
+  ) : (
+    <ol class="rows">
+      {posts.map((p) => (
+        <li>
+          <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
+          <div>
+            <h3>
+              <a href={`/posts/${p.id}/`}>{p.data.title}</a>
+            </h3>
+            <p>{p.data.description}</p>
+            <div class="meta">
+              <a href={kinds[p.data.kind].path}>{kinds[p.data.kind].label}</a>
+              <span>{p.data.category}</span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}

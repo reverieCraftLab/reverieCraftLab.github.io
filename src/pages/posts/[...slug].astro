@@ -1,0 +1,114 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SeriesStem from '../../components/SeriesStem.astro';
+import {
+  formatDate,
+  getPosts,
+  isoDate,
+  kinds,
+  readingMinutes,
+  seriesList,
+  seriesParts,
+} from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const { data } = post;
+
+const series = data.series ? seriesList.find((s) => s.id === data.series!.id) : undefined;
+const parts = series ? seriesParts(posts, series.id) : [];
+const written = parts.filter((p) => p.post);
+const idx = written.findIndex((p) => p.post!.id === post.id);
+const prev = idx > 0 ? written[idx - 1] : undefined;
+const next = idx >= 0 && idx < written.length - 1 ? written[idx + 1] : undefined;
+---
+
+<Base title={data.title} description={data.description}>
+  <article>
+    <header class="post-head ledger">
+      <div class="rail"></div>
+      <div>
+        <h1>{data.title}</h1>
+        <p class="desc">{data.description}</p>
+      </div>
+    </header>
+
+    <div class="ledger">
+      <aside class="rail" aria-label="글 정보">
+        <dl>
+          <dt>쓴 날</dt>
+          <dd><time datetime={isoDate(data.date)}>{formatDate(data.date)}</time></dd>
+          <dt>분류</dt>
+          <dd><a href={kinds[data.kind].path}>{kinds[data.kind].label}</a> {data.category}</dd>
+          <dt>읽는 시간</dt>
+          <dd>약 {readingMinutes(post.body)}분</dd>
+          {data.ai && (
+            <>
+              <dt>함께한 AI</dt>
+              {data.ai.design && <dd>설계 {data.ai.design}</dd>}
+              {data.ai.dev && <dd>개발 {data.ai.dev}</dd>}
+            </>
+          )}
+          <dt>태그</dt>
+          <dd>
+            {data.tags.map((t) => <a href={`/tags/${encodeURIComponent(t)}/`}>{t}</a>)}
+          </dd>
+        </dl>
+      </aside>
+
+      <div>
+        {
+          series && (
+            <div class="series-box">
+              <p>
+                <a href={`/series/${series.id}/`}>{series.title}</a> {data.series!.order}편
+              </p>
+              <div class="nav">
+                {prev && (
+                  <span>
+                    이전 편 <a href={`/posts/${prev.post!.id}/`}>{prev.title}</a>
+                  </span>
+                )}
+                {next && (
+                  <span>
+                    다음 편 <a href={`/posts/${next.post!.id}/`}>{next.title}</a>
+                  </span>
+                )}
+              </div>
+            </div>
+          )
+        }
+
+        <div class="prose">
+          <Content />
+        </div>
+
+        {
+          data.ai && (
+            <p class="ai-note">
+              이 글의 {[data.ai.design && `설계는 ${data.ai.design}`, data.ai.dev && `개발은 ${data.ai.dev}`]
+                .filter(Boolean)
+                .join(', ')}
+              와 함께 진행했다. {data.ai.note} <a href="/about/#ai">AI와 일하는 방식</a>
+            </p>
+          )
+        }
+
+        {
+          series && (
+            <div class="post-foot">
+              <h2 class="section-title">{series.title}</h2>
+              <SeriesStem parts={parts} currentId={post.id} />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </article>
+</Base>

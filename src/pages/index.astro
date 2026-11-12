@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRows from '../components/PostRows.astro';
+import SeriesStem from '../components/SeriesStem.astro';
+import { getPosts, seriesList, seriesParts, site, tagCounts } from '../data/site';
+
+const posts = await getPosts();
+const series = seriesList[0];
+const parts = seriesParts(posts, series.id);
+const tags = tagCounts(posts);
+---
+
+<Base>
+  <div class="home-intro ledger">
+    <div class="rail"></div>
+    <p class="lede">{site.intro}</p>
+  </div>
+
+  <section class="block series-feature ledger" aria-labelledby="series-title">
+    <div class="rail">
+      쓰고 있는 시리즈<br />
+      <span class="status">{series.status}</span>
+    </div>
+    <div>
+      <h2 id="series-title"><a href={`/series/${series.id}/`}>{series.title}</a></h2>
+      <p class="desc">{series.description}</p>
+      <SeriesStem parts={parts} grow />
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="recent-title">
+    <div class="ledger" style="margin-bottom:1.5rem">
+      <div class="rail"></div>
+      <h2 class="section-title" id="recent-title">최근 글</h2>
+    </div>
+    <PostRows posts={posts.slice(0, 5)} />
+  </section>
+
+  <section class="block ledger" aria-labelledby="tags-title">
+    <h2 class="section-title rail" id="tags-title" style="color:var(--ink)">태그</h2>
+    <ul class="taglist">
+      {
+        tags.map(([tag, count]) => (
+          <li>
+            <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
+            <span class="count">{count}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

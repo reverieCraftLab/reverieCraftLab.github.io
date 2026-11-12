@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import SeriesStem from '../../components/SeriesStem.astro';
+import { getPosts, seriesList, seriesParts } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return seriesList.map((series) => ({
+    params: { id: series.id },
+    props: { series, parts: seriesParts(posts, series.id) },
+  }));
+}
+
+const { series, parts } = Astro.props;
+const written = parts.filter((p) => p.post).length;
+---
+
+<Base title={series.title} description={series.description}>
+  <div class="page-head ledger">
+    <div class="rail">
+      시리즈<br />
+      <span class="status">{series.status}</span><br />
+      {parts.length}편 중 {written}편 발행
+    </div>
+    <div>
+      <h1>{series.title}</h1>
+      <p>{series.description}</p>
+      <SeriesStem parts={parts} grow />
+      {
+        series.ai && (
+          <dl class="ai-table">
+            <dt>설계에 쓴 모델</dt>
+            <dd>{series.ai.design}</dd>
+            <dt>개발에 쓴 모델</dt>
+            <dd>{series.ai.dev}</dd>
+          </dl>
+        )
+      }
+      {series.ai && <p class="ai-note">{series.ai.note} <a href="/about/#ai">AI와 일하는 방식</a></p>}
+    </div>
+  </div>
+</Base>
