@@ -3,7 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 export const site = {
   title: 'Reverie Craft Lab',
   tagline: '백엔드 작업 기록',
-  intro: 'Spring Boot와 PostgreSQL로 만드는 것들을, 왜 그렇게 만들었는지와 함께 적습니다.',
+  intro: '5년 넘게 개발했지만, 설명할 수 있는 게 없었습니다. 이제 하나씩 기록합니다.',
   author: 'reverieCraftLab',
   github: 'https://github.com/reverieCraftLab',
 };
