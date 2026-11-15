@@ -29,8 +29,8 @@ export const seriesList = [
       note: '명세서 분석과 설계 초안은 Claude와 대화하며 만들었다. 구현에 쓴 모델은 개발 일지마다 적는다.',
     },
     planned: [
-      { order: 4, title: '저장된 작기를 다시 흘려보내는 리플레이 엔진' },
-      { order: 5, title: 't2.micro 한 대에 올리기' },
+      { order: 5, title: '저장된 작기를 다시 흘려보내는 리플레이 엔진' },
+      { order: 6, title: 't2.micro 한 대에 올리기' },
     ],
   },
 ];
