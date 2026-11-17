@@ -29,9 +29,14 @@ import { site } from '../data/site';
         <dd>React</dd>
         <dd>Astro</dd>
         <dd>GitHub Pages</dd>
-        <dt>연락</dt>
+        <dt>Contact</dt>
         <dd><a href={site.github}>GitHub</a></dd>
-        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        <dd>
+          <button type="button" class="copy-btn" data-copy={site.email} aria-label={`이메일 주소 복사: ${site.email}`}>
+            Email
+          </button>
+          <span class="copy-note" role="status" aria-live="polite"></span>
+        </dd>
       </dl>
     </div>
     <div class="prose">
@@ -140,3 +145,26 @@ import { site } from '../data/site';
     </div>
   </div>
 </Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+    const note = btn.parentElement?.querySelector('.copy-note');
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      if (note) {
+        note.textContent = 'Copied!';
+        setTimeout(() => (note.textContent = ''), 2000);
+      }
+    });
+  });
+</script>

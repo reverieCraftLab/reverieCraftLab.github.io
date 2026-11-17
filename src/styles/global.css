@@ -368,6 +368,22 @@ section.block {
   margin-right: 0.4rem;
 }
 
+.copy-btn {
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.copy-note {
+  color: var(--soil);
+  font-size: 0.8rem;
+  margin-left: 0.4rem;
+}
+
 .series-box {
   border-left: 3px solid var(--moss);
   padding: 0.2rem 0 0.2rem 1.1rem;
