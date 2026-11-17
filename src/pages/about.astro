@@ -31,11 +31,14 @@ import { site } from '../data/site';
         <dd>GitHub Pages</dd>
         <dt>Contact</dt>
         <dd><a href={site.github}>GitHub</a></dd>
+        <dt>이메일</dt>
         <dd>
           <button type="button" class="copy-btn" data-copy={site.email} aria-label={`이메일 주소 복사: ${site.email}`}>
-            Email
+            <span>{site.email}</span>
+            <svg class="i-copy" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" /><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H3.5A1.5 1.5 0 0 0 2 3v5.5A1.5 1.5 0 0 0 3.5 10h.5" /></svg>
+            <svg class="i-done" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8" /></svg>
           </button>
-          <span class="copy-note" role="status" aria-live="polite"></span>
+          <span class="sr-only" role="status" aria-live="polite"></span>
         </dd>
       </dl>
     </div>
@@ -148,7 +151,7 @@ import { site } from '../data/site';
 
 <script>
   document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
-    const note = btn.parentElement?.querySelector('.copy-note');
+    const note = btn.parentElement?.querySelector('.sr-only');
     btn.addEventListener('click', async () => {
       const text = btn.dataset.copy ?? '';
       try {
@@ -161,10 +164,12 @@ import { site } from '../data/site';
         document.execCommand('copy');
         ta.remove();
       }
-      if (note) {
-        note.textContent = 'Copied!';
-        setTimeout(() => (note.textContent = ''), 2000);
-      }
+      btn.classList.add('copied');
+      if (note) note.textContent = '이메일 주소를 복사했습니다';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (note) note.textContent = '';
+      }, 2000);
     });
   });
 </script>

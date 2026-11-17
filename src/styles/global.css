@@ -11,7 +11,7 @@
   --font-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-code: 'IBM Plex Mono', 'D2Coding', Consolas, monospace;
 
-  --rail: 9.5rem;
+  --rail: 12rem;
   --measure: 42.5rem;
   --gap: 2.5rem;
 }
@@ -375,13 +375,34 @@ section.block {
   border: 0;
   padding: 0;
   cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
-.copy-note {
+.copy-btn svg {
   color: var(--soil);
-  font-size: 0.8rem;
-  margin-left: 0.4rem;
+  flex: none;
+}
+.copy-btn .i-done {
+  display: none;
+  color: var(--moss);
+}
+.copy-btn:hover svg {
+  color: var(--ink);
+}
+.copy-btn.copied .i-copy {
+  display: none;
+}
+.copy-btn.copied .i-done {
+  display: block;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .series-box {
