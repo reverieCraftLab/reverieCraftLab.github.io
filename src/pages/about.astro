@@ -14,16 +14,27 @@ import { site } from '../data/site';
   <div class="ledger">
     <div class="rail">
       <dl>
-        <dt>주로 쓰는 것</dt>
-        <dd>Spring Boot 3, JPA</dd>
+        <dt>언어 · 프레임워크</dt>
+        <dd>Java</dd>
+        <dd>Spring Boot 3</dd>
+        <dd>Spring Data JPA</dd>
+        <dd>JdbcTemplate</dd>
+        <dt>데이터</dt>
         <dd>PostgreSQL</dd>
+        <dd>Supabase</dd>
+        <dt>인프라</dt>
         <dd>AWS EC2</dd>
+        <dd>Linux</dd>
+        <dt>그 밖에</dt>
+        <dd>React</dd>
+        <dd>Astro</dd>
+        <dd>GitHub Pages</dd>
         <dt>연락</dt>
         <dd><a href={site.github}>GitHub</a></dd>
+        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
       </dl>
     </div>
     <div class="prose">
-      <p>백엔드 개발자입니다. Spring Boot와 JPA로 서버를 만들고, PostgreSQL에 데이터를 담습니다.</p>
       <p>
         이 블로그에는 만든 결과보다 결정한 이유를 적습니다. 테이블의 키를 왜 그렇게 잡았는지, 트랜잭션을
         어디서 끊었는지, 다른 선택지는 왜 버렸는지를 남깁니다. 나중에 같은 코드를 다시 봤을 때 스스로
@@ -33,6 +44,68 @@ import { site } from '../data/site';
         글은 두 종류입니다. <a href="/notes/">기술 노트</a>는 설계 결정을 주제별로 정리한 글이고,
         <a href="/devlog/">개발 일지</a>는 구현하면서 막힌 곳과 푼 방법을 적은 글입니다.
       </p>
+
+      <h2 id="stack">사용하는 기술</h2>
+      <p>
+        왼쪽 정보란은 이름만 모은 목록이고, 아래 표는 각각을 어디에 어떻게 썼는지 적은 것입니다.
+        "상태"는 실제로 어디까지 갔는지를 뜻합니다. 아직 계획인 것을 쓴 것처럼 적지 않으려고 구분했습니다.
+      </p>
+      <table>
+        <thead>
+          <tr><th>기술</th><th>쓴 곳</th><th>상태</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Java, Spring Boot</td>
+            <td>
+              JSP를 쓰는 레거시 모놀리식 시스템의 개발과 유지보수. 지금은 Spring Boot 3로 새
+              프로젝트를 만들고 있다.
+            </td>
+            <td>실무</td>
+          </tr>
+          <tr>
+            <td>Spring Data JPA</td>
+            <td>
+              스마트팜 프로젝트의 엔티티와 조회. 복합키를 JPA로 다루는 번거로움까지 따져 테이블을
+              설계했다.
+            </td>
+            <td>프로젝트</td>
+          </tr>
+          <tr>
+            <td>JdbcTemplate</td>
+            <td>
+              측정값 대량 적재. <code>saveAll</code> 대신 JdbcTemplate을 쓰고,
+              <code>reWriteBatchedInserts</code> 옵션으로 insert를 묶는다.
+            </td>
+            <td>프로젝트</td>
+          </tr>
+          <tr>
+            <td>PostgreSQL, Supabase</td>
+            <td>측정값 테이블의 키, 인덱스, 시간 타입 설계. 개발용 DB는 Supabase를 쓴다.</td>
+            <td>프로젝트</td>
+          </tr>
+          <tr>
+            <td>SSE</td>
+            <td>가상 시계에 맞춰 저장된 데이터를 다시 흘려보내는 리플레이 전송.</td>
+            <td>설계 단계</td>
+          </tr>
+          <tr>
+            <td>AWS EC2, Linux</td>
+            <td>t2.micro 한 대에 서비스를 올리는 것이 목표. 리눅스마스터 2급을 갖고 있다.</td>
+            <td>계획</td>
+          </tr>
+          <tr>
+            <td>React</td>
+            <td>TODO 리스트와 코인 시세 조회를 만든 학습 프로젝트.</td>
+            <td>학습</td>
+          </tr>
+          <tr>
+            <td>Astro, GitHub Pages</td>
+            <td>이 블로그. 글은 마크다운으로 쓰고 정적 사이트로 배포한다.</td>
+            <td>운영 중</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h2 id="ai">AI와 일하는 방식</h2>
       <p>

@@ -17,7 +17,7 @@ const { tag, posts } = Astro.props;
 <Base title={`태그: ${tag}`} description={`${tag} 태그가 붙은 글.`}>
   <div class="page-head ledger">
     <div class="rail">
-      <a href="/tags/">태그 전체</a><br />글 {posts.length}개
+      <a href="/notes/">전체 글</a><br />글 {posts.length}개
     </div>
     <div>
       <h1>{tag}</h1>

@@ -2,12 +2,11 @@
 import Base from '../layouts/Base.astro';
 import PostRows from '../components/PostRows.astro';
 import SeriesStem from '../components/SeriesStem.astro';
-import { getPosts, seriesList, seriesParts, site, tagCounts } from '../data/site';
+import { getPosts, seriesList, seriesParts, site } from '../data/site';
 
 const posts = await getPosts();
 const series = seriesList[0];
 const parts = seriesParts(posts, series.id);
-const tags = tagCounts(posts);
 ---
 
 <Base>
@@ -36,17 +35,4 @@ const tags = tagCounts(posts);
     <PostRows posts={posts.slice(0, 5)} />
   </section>
 
-  <section class="block ledger" aria-labelledby="tags-title">
-    <h2 class="section-title rail" id="tags-title" style="color:var(--ink)">태그</h2>
-    <ul class="taglist">
-      {
-        tags.map(([tag, count]) => (
-          <li>
-            <a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
-            <span class="count">{count}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
 </Base>

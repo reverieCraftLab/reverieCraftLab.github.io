@@ -6,6 +6,7 @@ export const site = {
   intro: '5년 넘게 개발했지만, 설명할 수 있는 게 없었습니다. 이제 하나씩 기록합니다.',
   author: 'reverieCraftLab',
   github: 'https://github.com/reverieCraftLab',
+  email: 'seogwotan@gmail.com',
 };
 
 export const kinds = {
