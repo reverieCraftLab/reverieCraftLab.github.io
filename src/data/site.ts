@@ -9,6 +9,16 @@ export const site = {
   email: 'seogwotan@gmail.com',
 };
 
+export const profile = {
+  name: '서권탁',
+  eyebrow: 'BACKEND DEVELOPER / 2026',
+  birth: '1997.03.23',
+  city: 'Seoul',
+  role: 'Backend Developer',
+  roleNote: 'Freelance',
+  focus: ['Spring Boot 3', 'JPA', 'PostgreSQL', 'Supabase', 'AWS EC2'],
+};
+
 export const kinds = {
   note: { label: '기술 노트', path: '/notes/' },
   devlog: { label: '개발 일지', path: '/devlog/' },

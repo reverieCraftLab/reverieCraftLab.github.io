@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PostRows from '../components/PostRows.astro';
 import SeriesStem from '../components/SeriesStem.astro';
-import { getPosts, seriesList, seriesParts, site } from '../data/site';
+import { getPosts, seriesList, seriesParts, site, profile } from '../data/site';
 
 const posts = await getPosts();
 const series = seriesList[0];
@@ -10,10 +10,27 @@ const parts = seriesParts(posts, series.id);
 ---
 
 <Base>
-  <div class="home-intro ledger">
-    <div class="rail"></div>
-    <p class="lede">{site.intro}</p>
-  </div>
+  <section class="hero" aria-label="소개">
+    <div class="hero-main">
+      <p class="eyebrow">{profile.eyebrow}</p>
+      <p class="hero-lede">{site.intro}</p>
+      <h1 class="hero-name">{profile.name}</h1>
+      <p class="hero-desc">
+        <strong>결과</strong>보다 <strong>결정한 이유</strong>를 남기는 <strong>백엔드 개발자</strong>입니다.
+        테이블의 키, 트랜잭션의 경계, 버린 선택지까지 글로 적습니다.
+      </p>
+      <p class="hero-meta"><span>{profile.birth}</span><span>{profile.city}</span></p>
+    </div>
+    <aside class="hero-side">
+      <h2 class="eyebrow">CURRENTLY</h2>
+      <p class="hero-role">{profile.role}</p>
+      <p class="hero-role-note">{profile.roleNote}</p>
+      <h2 class="eyebrow focus-title">FOCUS</h2>
+      <ul class="chips">
+        {profile.focus.map((f) => <li>{f}</li>)}
+      </ul>
+    </aside>
+  </section>
 
   <section class="block series-feature ledger" aria-labelledby="series-title">
     <div class="rail">
